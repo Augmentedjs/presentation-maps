@@ -1,0 +1,10 @@
+{
+  "presets": [
+    ["env", {
+      "targets": {
+        "browsers": ["firefox > 65", "chrome > 66"]
+      },
+      "debug": true
+    }]
+  ]
+}

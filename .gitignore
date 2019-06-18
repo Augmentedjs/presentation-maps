@@ -1,0 +1,13 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+coverage
+.DS_Store
+package-lock.json
+
+# Dependency directories
+node_modules
+
+# Optional npm cache directory
+.npm
