@@ -4,6 +4,28 @@ import producePoints from "./functions/producePoints.js";
 
 const MAP_EL = "map";
 
+/**
+ * HeatMapView - A Google Maps Heatmap View
+ * @param {Object} options Options tp pass
+ * Requires the following options passed for meaningful results:
+ * @example
+ * class MapView extends HeatMapView {
+ * constructor() {
+ *   super({
+ *       "el": MOUNT_POINT,
+ *       "template": `any template you want`,
+ *       "name": "mapview",
+ *       "style": "view",
+ *       "lat": 37.775,
+ *       "long": -122.434,
+ *       "zoom": 13,
+ *       "apikey": MAP_API_KEY,
+ *       "data": [{ "lat": 37, "long": -122 }, ... ]
+ *     });
+ *   };
+ * };
+ * @extends DirectiveView
+ */
 class HeatMapView extends DirectiveView {
   constructor(options) {
     if (!options) {
@@ -15,7 +37,7 @@ class HeatMapView extends DirectiveView {
     }
 
     if (options.data) {
-      this._data = producePoints(options.data);
+      this._data = options.data;
     } else {
       this._data = [];
     }
@@ -46,7 +68,7 @@ class HeatMapView extends DirectiveView {
     this._map_el = `${this.name}_${MAP_EL}`;
 
     this.template += `
-      <div id="${this._map_el}"></div>
+      <div id="${this._map_el}" class="map"></div>
     `;
   };
 
@@ -70,7 +92,7 @@ class HeatMapView extends DirectiveView {
         });
         if (google.visualization) {
           this.heatmap = new google.visualization.HeatmapLayer({
-            "data": this._data,
+            "data": producePoints(google, this._data),
             "map": this.map
           });
         } else {
