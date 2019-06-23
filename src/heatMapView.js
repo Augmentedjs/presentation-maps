@@ -70,6 +70,31 @@ class HeatMapView extends DirectiveView {
     this.template += `
       <div id="${this._map_el}" class="map"></div>
     `;
+
+    if (options.geocode) {
+      this._supportGeocoder = true;
+    } else {
+      this._supportGeocoder = false;
+    }
+  };
+
+  async geocode(location) {
+    return await this._geocodeAddress(this._geocoder, this.map, location);
+  };
+
+  async _geocodeAddress(geocoder, resultsMap, location) {
+    await geocoder.geocode({ "address": location }, (results, status) => {
+      if (status === 'OK') {
+        resultsMap.setCenter(results[0].geometry.location);
+        const marker = new google.maps.Marker({
+          map: resultsMap,
+          position: results[0].geometry.location
+        });
+        console.debug("results", results);
+      } else {
+        console.error(`Geocode was not successful for the following reason: ${status}`);
+      }
+    });
   };
 
   async render() {
@@ -80,6 +105,9 @@ class HeatMapView extends DirectiveView {
       "libraries": ["visualization"]
     })
     .then( (google) => {
+      if (this._supportGeocoder) {
+        this._geocoder = new google.Geocoder();
+      }
       const mapEl = document.getElementById(this._map_el);
       if (mapEl) {
         this.map = new google.Map(mapEl, {
