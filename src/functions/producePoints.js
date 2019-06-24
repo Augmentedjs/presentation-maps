@@ -5,7 +5,14 @@ const producePoints = (google, data) => {
     let i = 0;
     const l = data.length;
     for (i; i < l; i++) {
-      points.push(new google.maps.LatLng(data[i].lat, data[i].long));
+      if (data[i].lat && data[i].long) {
+        const latlong = new google.maps.LatLng(data[i].lat, data[i].long);
+        if (data[i].weight) {
+          points.push({ location: latlong, weight: data[i].weight });
+        } else {
+          points.push(latlong);
+        }
+      }
     }
   } else {
     if (!google) {
