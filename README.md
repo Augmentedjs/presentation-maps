@@ -14,11 +14,13 @@ Augmented.js Presentation Maps Module
     -   [geocode](#geocode)
         -   [Parameters](#parameters-1)
     -   [render](#render)
+    -   [produceHeatmap](#produceheatmap)
+        -   [Parameters](#parameters-2)
 -   [MapView](#mapview)
-    -   [Parameters](#parameters-2)
+    -   [Parameters](#parameters-3)
     -   [Examples](#examples-1)
     -   [geocode](#geocode-1)
-        -   [Parameters](#parameters-3)
+        -   [Parameters](#parameters-4)
     -   [render](#render-1)
 
 ## HeatMapView
@@ -66,6 +68,14 @@ geocode a location and update the map with a pin
 Renders the Map
 
 Returns **View** returns 'this'
+
+### produceHeatmap
+
+Produces the heatmap from point data
+
+#### Parameters
+
+-   `data` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** The data as an array of points in Lat/Long
 
 ## MapView
 

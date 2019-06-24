@@ -106,6 +106,24 @@
 <ul>
 <li><a href="#parameters">Parameters</a></li>
 <li><a href="#examples">Examples</a></li>
+<li><a href="#geocode">geocode</a>
+<ul>
+<li><a href="#parameters-1">Parameters</a></li>
+</ul>
+</li>
+<li><a href="#render">render</a></li>
+</ul>
+</li>
+<li><a href="#mapview">MapView</a>
+<ul>
+<li><a href="#parameters-2">Parameters</a></li>
+<li><a href="#examples-1">Examples</a></li>
+<li><a href="#geocode-1">geocode</a>
+<ul>
+<li><a href="#parameters-3">Parameters</a></li>
+</ul>
+</li>
+<li><a href="#render-1">render</a></li>
 </ul>
 </li>
 </ul>
@@ -114,7 +132,7 @@
 <p>HeatMapView - A Google Maps Heatmap View</p>
 <h3>Parameters</h3>
 <ul>
-<li><code>options</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></strong> Options tp pass<br>
+<li><code>options</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></strong> Options to pass<br>
 Requires the following options passed for meaningful results:</li>
 </ul>
 <h3>Examples</h3>
@@ -133,7 +151,52 @@ constructor() {
     });
   };
 };
-</code></pre></article>
+</code></pre>
+<h3>geocode</h3>
+<p>geocode a location and update the map with a pin</p>
+<h4>Parameters</h4>
+<ul>
+<li><code>location</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></strong> The location as a string</li>
+<li><code>callback</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a></strong> Opional callback once the call is complete and 'results' are passed</li>
+</ul>
+<h3>render</h3>
+<p>Renders the Map</p>
+<p>Returns <strong>View</strong> returns 'this'</p>
+<h2>MapView</h2>
+<p><strong>Extends DirectiveView</strong></p>
+<p>MapView - A Google Map View</p>
+<h3>Parameters</h3>
+<ul>
+<li><code>options</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></strong> Options to pass<br>
+Requires the following options passed for meaningful results:</li>
+</ul>
+<h3>Examples</h3>
+<pre class="prettyprint source lang-javascript"><code>class MyMapView extends MapView {
+constructor() {
+  super({
+      &quot;el&quot;: MOUNT_POINT,
+      &quot;template&quot;: `any template you want`,
+      &quot;name&quot;: &quot;mapview&quot;,
+      &quot;style&quot;: &quot;view&quot;,
+      &quot;lat&quot;: 37.775,
+      &quot;long&quot;: -122.434,
+      &quot;zoom&quot;: 13,
+      &quot;apikey&quot;: MAP_API_KEY,
+      &quot;data&quot;: [{ &quot;lat&quot;: 37, &quot;long&quot;: -122 }, ... ]
+    });
+  };
+};
+</code></pre>
+<h3>geocode</h3>
+<p>geocode a location and update the map with a pin</p>
+<h4>Parameters</h4>
+<ul>
+<li><code>location</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></strong> The location as a string</li>
+<li><code>callback</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">function</a></strong> Opional callback once the call is complete and 'results' are passed</li>
+</ul>
+<h3>render</h3>
+<p>Renders the Map</p>
+<p>Returns <strong>View</strong> returns 'this'</p></article>
 		</section>
 			</div>
 				<div class="col-md-3 side-content">

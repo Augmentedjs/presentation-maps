@@ -108,9 +108,18 @@ window.lunrData = {
           "lt;async&gt",
           "map",
           "render"
+        ],
+        "HeatMapView.html#produceHeatmap": [
+          "data",
+          "function",
+          "heatmap",
+          "heatmapview#produceheatmap",
+          "point",
+          "produc",
+          "produceheatmap"
         ]
       },
-      "length": 9
+      "length": 10
     },
     "tokenStore": {
       "root": {
@@ -207,6 +216,20 @@ window.lunrData = {
                 }
               }
             }
+          },
+          "a": {
+            "docs": {},
+            "t": {
+              "docs": {},
+              "a": {
+                "docs": {
+                  "HeatMapView.html#produceHeatmap": {
+                    "ref": "HeatMapView.html#produceHeatmap",
+                    "tf": 62.5
+                  }
+                }
+              }
+            }
           }
         },
         "i": {
@@ -269,6 +292,52 @@ window.lunrData = {
                   }
                 }
               }
+            },
+            "o": {
+              "docs": {},
+              "d": {
+                "docs": {},
+                "u": {
+                  "docs": {},
+                  "c": {
+                    "docs": {
+                      "HeatMapView.html#produceHeatmap": {
+                        "ref": "HeatMapView.html#produceHeatmap",
+                        "tf": 12.5
+                      }
+                    },
+                    "e": {
+                      "docs": {},
+                      "h": {
+                        "docs": {},
+                        "e": {
+                          "docs": {},
+                          "a": {
+                            "docs": {},
+                            "t": {
+                              "docs": {},
+                              "m": {
+                                "docs": {},
+                                "a": {
+                                  "docs": {},
+                                  "p": {
+                                    "docs": {
+                                      "HeatMapView.html#produceHeatmap": {
+                                        "ref": "HeatMapView.html#produceHeatmap",
+                                        "tf": 700
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             }
           },
           "i": {
@@ -282,6 +351,23 @@ window.lunrData = {
                 "HeatMapView.html#geocode": {
                   "ref": "HeatMapView.html#geocode",
                   "tf": 10
+                }
+              }
+            }
+          },
+          "o": {
+            "docs": {},
+            "i": {
+              "docs": {},
+              "n": {
+                "docs": {},
+                "t": {
+                  "docs": {
+                    "HeatMapView.html#produceHeatmap": {
+                      "ref": "HeatMapView.html#produceHeatmap",
+                      "tf": 12.5
+                    }
+                  }
                 }
               }
             }
@@ -731,6 +817,10 @@ window.lunrData = {
                           "HeatMapView.html#render": {
                             "ref": "HeatMapView.html#render",
                             "tf": 110
+                          },
+                          "HeatMapView.html#produceHeatmap": {
+                            "ref": "HeatMapView.html#produceHeatmap",
+                            "tf": 110
                           }
                         }
                       }
@@ -782,6 +872,10 @@ window.lunrData = {
                         "HeatMapView.html": {
                           "ref": "HeatMapView.html",
                           "tf": 10
+                        },
+                        "HeatMapView.html#produceHeatmap": {
+                          "ref": "HeatMapView.html#produceHeatmap",
+                          "tf": 12.5
                         }
                       },
                       "v": {
@@ -838,6 +932,53 @@ window.lunrData = {
                                       }
                                     }
                                   }
+                                },
+                                "p": {
+                                  "docs": {},
+                                  "r": {
+                                    "docs": {},
+                                    "o": {
+                                      "docs": {},
+                                      "d": {
+                                        "docs": {},
+                                        "u": {
+                                          "docs": {},
+                                          "c": {
+                                            "docs": {},
+                                            "e": {
+                                              "docs": {},
+                                              "h": {
+                                                "docs": {},
+                                                "e": {
+                                                  "docs": {},
+                                                  "a": {
+                                                    "docs": {},
+                                                    "t": {
+                                                      "docs": {},
+                                                      "m": {
+                                                        "docs": {},
+                                                        "a": {
+                                                          "docs": {},
+                                                          "p": {
+                                                            "docs": {
+                                                              "HeatMapView.html#produceHeatmap": {
+                                                                "ref": "HeatMapView.html#produceHeatmap",
+                                                                "tf": 1150
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
                                 }
                               }
                             }
@@ -852,12 +993,13 @@ window.lunrData = {
           }
         }
       },
-      "length": 52
+      "length": 59
     },
     "corpusTokens": [
       "augmented.j",
       "callback",
       "class",
+      "data",
       "develop",
       "document",
       "function",
@@ -867,6 +1009,7 @@ window.lunrData = {
       "heatmap",
       "heatmapview",
       "heatmapview#geocod",
+      "heatmapview#produceheatmap",
       "heatmapview#rend",
       "index",
       "list",
@@ -879,7 +1022,10 @@ window.lunrData = {
       "mapview#rend",
       "next",
       "pin",
+      "point",
       "present",
+      "produc",
+      "produceheatmap",
       "readm",
       "render",
       "simpli",
@@ -987,6 +1133,16 @@ window.lunrData = {
       "tags": "HeatMapView#render render",
       "summary": "",
       "description": "Renders the Map"
+    },
+    "HeatMapView.html#produceHeatmap": {
+      "id": "HeatMapView.html#produceHeatmap",
+      "kind": "function",
+      "title": "produceHeatmap( data )",
+      "longname": "HeatMapView#produceHeatmap",
+      "name": "produceHeatmap",
+      "tags": "HeatMapView#produceHeatmap produceHeatmap",
+      "summary": "",
+      "description": "Produces the heatmap from point data"
     }
   }
 };

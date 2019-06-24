@@ -215,22 +215,23 @@ class HeatMapView extends DirectiveView {
       "libraries": ["visualization"]
     })
     .then( (google) => {
+      this._google = google;
       if (this._supportGeocoder) {
-        this._geocoder = new google.Geocoder();
+        this._geocoder = new this._google.Geocoder();
       }
       const mapEl = document.getElementById(this._map_el);
       if (mapEl) {
-        this.map = new google.Map(mapEl, {
+        this.map = new this._google.Map(mapEl, {
           "zoom": this._zoom,
           "center": {
             lat: this._lat,
             lng: this._long
           },
-          "mapTypeId": 'satellite'
+          "mapTypeId": "satellite"
         });
-        if (google.visualization) {
-          this.heatmap = new google.visualization.HeatmapLayer({
-            "data": producePoints(google, this._data),
+        if (this._google.visualization) {
+          this.heatmap = new this._google.visualization.HeatmapLayer({
+            "data": producePoints(this._google, this._data),
             "map": this.map
           });
         } else {
@@ -245,6 +246,23 @@ class HeatMapView extends DirectiveView {
       console.error(error);
     });
     return this;
+  };
+
+  /**
+   * Produces the heatmap from point data
+   * @param {Array} data The data as an array of points in Lat/Long
+   */
+  produceHeatmap(data) {
+    if (this._google.visualization &amp;&amp; (data || this._data)) {
+      this.heatmap = new this._google.visualization.HeatmapLayer({
+        "data": producePoints(google, ((data) ? data : this._data)),
+        "map": this.map
+      });
+    } else {
+      console.warn("Google Visualization could not load!");
+      console.debug("required", this._google.visualization, data, this._data);
+    }
+    return true;
   };
 
   async remove() {

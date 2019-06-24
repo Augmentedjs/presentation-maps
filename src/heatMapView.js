@@ -149,6 +149,10 @@ class HeatMapView extends DirectiveView {
     return this;
   };
 
+  /**
+   * Produces the heatmap from point data
+   * @param {Array} data The data as an array of points in Lat/Long
+   */
   produceHeatmap(data) {
     if (this._google.visualization && (data || this._data)) {
       this.heatmap = new this._google.visualization.HeatmapLayer({
@@ -159,6 +163,7 @@ class HeatMapView extends DirectiveView {
       console.warn("Google Visualization could not load!");
       console.debug("required", this._google.visualization, data, this._data);
     }
+    return true;
   };
 
   async remove() {
