@@ -1,6 +1,6 @@
 const producePoints = (google, data) => {
   const points = [];
-  console.debug(google);
+  //console.debug(google);
   if (google && data && Array.isArray(data) && data.length > 0) {
     let i = 0;
     const l = data.length;

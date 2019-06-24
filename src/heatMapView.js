@@ -91,7 +91,7 @@ class HeatMapView extends DirectiveView {
     await geocoder.geocode({ "address": location }, (results, status) => {
       if (status === 'OK') {
         resultsMap.setCenter(results[0].geometry.location);
-        const marker = new google.maps.Marker({
+        const marker = new this._google.Marker({
           map: resultsMap,
           position: results[0].geometry.location
         });
