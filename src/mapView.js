@@ -1,15 +1,14 @@
 import { DirectiveView } from "presentation-decorator";
 import loadGoogleMapsApi from "load-google-maps-api";
-import producePoints from "./functions/producePoints.js";
 
 const MAP_EL = "map";
 
 /**
- * HeatMapView - A Google Maps Heatmap View
+ * MapView - A Google Map View
  * @param {Object} options Options to pass
  * Requires the following options passed for meaningful results:
  * @example
- * class MapView extends HeatMapView {
+ * class MyMapView extends MapView {
  * constructor() {
  *   super({
  *       "el": MOUNT_POINT,
@@ -26,7 +25,7 @@ const MAP_EL = "map";
  * };
  * @extends DirectiveView
  */
-class HeatMapView extends DirectiveView {
+class MapView extends DirectiveView {
   constructor(options) {
     if (!options) {
       options = {};
@@ -112,8 +111,7 @@ class HeatMapView extends DirectiveView {
     await super.render();
 
     await loadGoogleMapsApi({
-      "key": this._apikey,
-      "libraries": ["visualization"]
+      "key": this._apikey
     })
     .then( (google) => {
       if (this._supportGeocoder) {
@@ -129,14 +127,6 @@ class HeatMapView extends DirectiveView {
           },
           "mapTypeId": 'satellite'
         });
-        if (google.visualization) {
-          this.heatmap = new google.visualization.HeatmapLayer({
-            "data": producePoints(google, this._data),
-            "map": this.map
-          });
-        } else {
-          console.warn("Google Visualization could not load!");
-        }
       } else {
         throw new Error("no map el");
       }
@@ -153,4 +143,4 @@ class HeatMapView extends DirectiveView {
   };
 };
 
-export default HeatMapView;
+export default MapView;

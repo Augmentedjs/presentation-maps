@@ -1,9 +1,10 @@
+<!-- start:source.tmpl.hbs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-		<title>Globals</title>
+		<title>mapView.js</title>
 		<link rel="icon" type="image/png" href="favicon.png"/>
 		<!--[if lt IE 9]>
 		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -42,7 +43,7 @@
 			</style>
 		<script type="text/javascript">
 			window.TEMPLATE_OPTIONS = {"includeDate":true,"dateFormat":"ddd MMM Do YYYY","systemName":"Augmented.js Next Presentation","systemSummary":"Augmented.js Next Presentation - Simply Development.","systemLogo":"img/jensen-silo-circle-small.png","systemColor":"#607D8B","navMembers":[{"kind":"class","title":"Classes","summary":"All documented classes."},{"kind":"external","title":"Externals","summary":"All documented external members."},{"kind":"global","title":"Globals","summary":"All documented globals."},{"kind":"mixin","title":"Mixins","summary":"All documented mixins."},{"kind":"interface","title":"Interfaces","summary":"All documented interfaces."},{"kind":"module","title":"Modules","summary":"All documented modules."},{"kind":"namespace","title":"Namespaces","summary":"All documented namespaces."},{"kind":"tutorial","title":"Tutorials","summary":"All available tutorials."}],"footer":"<a href='http://www.augmentedjs.com'>Augmented.js Homepage</a>","copyright":"","linenums":true,"collapseSymbols":false,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":true,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":false,"sort":"linenum, longname, version, since","search":true,"favicon":"favicon.png","stylesheets":[],"scripts":[],"monospaceLinks":false,"cleverLinks":false,"logoFile":"public/images/jensen-silo-circle-small.png","navType":"vertical","protocol":"html://"};
-			window.DOCLET_TOC_ENABLED = true;
+			window.DOCLET_TOC_ENABLED = false;
 			window.DOCLET_AFILTER_ENABLED = false;
 		</script>
 </head>
@@ -87,25 +88,164 @@
 	</header>
 	<!-- end:navbar.hbs -->		<div class="page-header">
 			<div class="container">
-				<span class="kind">global</span>
-				<h1><span class="name">Globals</span></h1>
-				<div class="summary"><p>All documented globals.</p></div>			</div>
+				<span class="kind">source</span>
+				<h1><span class="name">mapView.js</span></h1>
+			</div>
 		</div>
 	<div class="container content">
 		<div class="row">
-			<div class="col-md-9 main-content">
-						<ol class="breadcrumb">
-							<li><a href="index.html">Home</a></li>
-							<li class="active">Globals</li>
-						</ol>
-					<section>
-							<article class="secondary">
-							</article>
-					</section>
+			<div class="col-md-12 main-content">
+		<section class="source-section">
+			<article></article>
+			<pre class="prettyprint source language-javascript line-numbers"><code class="language-javascript">import { DirectiveView } from "presentation-decorator";
+import loadGoogleMapsApi from "load-google-maps-api";
+
+const MAP_EL = "map";
+
+/**
+ * MapView - A Google Map View
+ * @param {Object} options Options to pass
+ * Requires the following options passed for meaningful results:
+ * @example
+ * class MyMapView extends MapView {
+ * constructor() {
+ *   super({
+ *       "el": MOUNT_POINT,
+ *       "template": `any template you want`,
+ *       "name": "mapview",
+ *       "style": "view",
+ *       "lat": 37.775,
+ *       "long": -122.434,
+ *       "zoom": 13,
+ *       "apikey": MAP_API_KEY,
+ *       "data": [{ "lat": 37, "long": -122 }, ... ]
+ *     });
+ *   };
+ * };
+ * @extends DirectiveView
+ */
+class MapView extends DirectiveView {
+  constructor(options) {
+    if (!options) {
+      options = {};
+    }
+    super(options);
+    if (!this.template) {
+      this.template = "";
+    }
+
+    if (options.data) {
+      this._data = options.data;
+    } else {
+      this._data = [];
+    }
+
+    if (options.apikey) {
+      this._apikey = options.apikey;
+    } else {
+      this._apikey = "";
+    }
+
+    if (options.lat) {
+      this._lat = options.lat;
+    } else {
+      this._lat = 37.775;
+    }
+
+    if (options.long) {
+      this._long = options.long;
+    } else {
+      this._long = -122.434;
+    }
+
+    if (options.zoom) {
+      this._zoom = options.zoom;
+    } else {
+      this._zoom = 13;
+    }
+    this._map_el = `${this.name}_${MAP_EL}`;
+
+    this.template += `
+      &lt;div id="${this._map_el}" class="map">&lt;/div>
+    `;
+
+    if (options.geocode) {
+      this._supportGeocoder = true;
+    } else {
+      this._supportGeocoder = false;
+    }
+  };
+
+  /**
+   * geocode a location and update the map with a pin
+   * @param {string} location The location as a string
+   * @param {function} callback Opional callback once the call is complete and 'results' are passed
+   */
+  async geocode(location, callback) {
+    return await this._geocodeAddress(this._geocoder, this.map, location, callback);
+  };
+
+  async _geocodeAddress(geocoder, resultsMap, location, callback) {
+    await geocoder.geocode({ "address": location }, (results, status) => {
+      if (status === 'OK') {
+        resultsMap.setCenter(results[0].geometry.location);
+        const marker = new google.maps.Marker({
+          map: resultsMap,
+          position: results[0].geometry.location
+        });
+        if (callback) {
+          callback(results);
+        }
+      } else {
+        console.error(`Geocode was not successful for the following reason: ${status}`);
+      }
+    });
+  };
+
+  /**
+   * Renders the Map
+   * @returns {View} returns 'this'
+   */
+  async render() {
+    await super.render();
+
+    await loadGoogleMapsApi({
+      "key": this._apikey
+    })
+    .then( (google) => {
+      if (this._supportGeocoder) {
+        this._geocoder = new google.Geocoder();
+      }
+      const mapEl = document.getElementById(this._map_el);
+      if (mapEl) {
+        this.map = new google.Map(mapEl, {
+          "zoom": this._zoom,
+          "center": {
+            lat: this._lat,
+            lng: this._long
+          },
+          "mapTypeId": 'satellite'
+        });
+      } else {
+        throw new Error("no map el");
+      }
+      return true;
+    })
+    .catch( (error) => {
+      console.error(error);
+    });
+    return this;
+  };
+
+  async remove() {
+    return super.remove();
+  };
+};
+
+export default MapView;
+</code></pre>
+		</section>
 			</div>
-				<div class="col-md-3 side-content">
-					<nav class="toc hidden-print hidden-sm hidden-xs"></nav>
-				</div>
 		</div>
 	</div>
 	<footer>
@@ -137,3 +277,4 @@
 	
 </body>
 </html>
+<!-- end:source.tmpl.hbs -->
