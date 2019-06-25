@@ -131,6 +131,9 @@ class HeatMapView extends DirectiveView {
           "mapTypeId": "satellite"
         });
         if (this._google.visualization) {
+          if (this.heatmap) {
+            this.heatmap.setMap(null);
+          }
           this.heatmap = new this._google.visualization.HeatmapLayer({
             "data": producePoints(this._google, this._data),
             "map": this.map
@@ -155,13 +158,16 @@ class HeatMapView extends DirectiveView {
    */
   produceHeatmap(data) {
     if (this._google.visualization && (data || this._data)) {
+      if (this.heatmap) {
+        this.heatmap.setMap(null);
+      }
       this.heatmap = new this._google.visualization.HeatmapLayer({
         "data": producePoints(google, ((data) ? data : this._data)),
         "map": this.map
       });
     } else {
       console.warn("Google Visualization could not load!");
-      console.debug("required", this._google.visualization, data, this._data);
+      //console.debug("required", this._google.visualization, data, this._data);
     }
     return true;
   };
