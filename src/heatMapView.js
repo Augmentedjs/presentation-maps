@@ -65,17 +65,30 @@ class HeatMapView extends DirectiveView {
     } else {
       this._zoom = 13;
     }
-    this._map_el = `${this.name}_${MAP_EL}`;
-
-    this.template += `
-      <div id="${this._map_el}" class="map"></div>
-    `;
 
     if (options.geocode) {
       this._supportGeocoder = true;
     } else {
       this._supportGeocoder = false;
     }
+
+    if (options.dissipating) {
+      this._dissipating = options.dissipating;
+    } else {
+      this._dissipating = false;
+    }
+
+    if (options.radius) {
+      this._radius = options.radius;
+    } else {
+      this._radius = options.radius;
+    }
+
+    this._map_el = `${this.name}_${MAP_EL}`;
+
+    this.template += `
+      <div id="${this._map_el}" class="map"></div>
+    `;
   };
 
   /**
@@ -125,8 +138,8 @@ class HeatMapView extends DirectiveView {
         this.map = new this._google.Map(mapEl, {
           "zoom": this._zoom,
           "center": {
-            lat: this._lat,
-            lng: this._long
+            "lat": this._lat,
+            "lng": this._long
           },
           "mapTypeId": "satellite"
         });
@@ -136,7 +149,9 @@ class HeatMapView extends DirectiveView {
           }
           this.heatmap = new this._google.visualization.HeatmapLayer({
             "data": producePoints(this._google, this._data),
-            "map": this.map
+            "map": this.map,
+            "dissipating": this._dissipating,
+            "radius": this._radius
           });
         } else {
           console.warn("Google Visualization could not load!");
@@ -163,7 +178,9 @@ class HeatMapView extends DirectiveView {
       }
       this.heatmap = new this._google.visualization.HeatmapLayer({
         "data": producePoints(google, ((data) ? data : this._data)),
-        "map": this.map
+        "map": this.map,
+        "dissipating": this._dissipating,
+        "radius": this._radius
       });
     } else {
       console.warn("Google Visualization could not load!");
