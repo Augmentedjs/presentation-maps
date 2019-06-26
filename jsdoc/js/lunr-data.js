@@ -65,17 +65,6 @@ window.lunrData = {
           "mapview",
           "view"
         ],
-        "MapView.html#geocode": [
-          "callback",
-          "function",
-          "geocod",
-          "locat",
-          "lt;async&gt",
-          "map",
-          "mapview#geocod",
-          "pin",
-          "updat"
-        ],
         "MapView.html#render": [
           "function",
           "lt;async&gt",
@@ -90,17 +79,6 @@ window.lunrData = {
           "heatmapview",
           "map",
           "view"
-        ],
-        "HeatMapView.html#geocode": [
-          "callback",
-          "function",
-          "geocod",
-          "heatmapview#geocod",
-          "locat",
-          "lt;async&gt",
-          "map",
-          "pin",
-          "updat"
         ],
         "HeatMapView.html#render": [
           "function",
@@ -119,7 +97,7 @@ window.lunrData = {
           "produceheatmap"
         ]
       },
-      "length": 10
+      "length": 8
     },
     "tokenStore": {
       "root": {
@@ -340,21 +318,6 @@ window.lunrData = {
               }
             }
           },
-          "i": {
-            "docs": {},
-            "n": {
-              "docs": {
-                "MapView.html#geocode": {
-                  "ref": "MapView.html#geocode",
-                  "tf": 10
-                },
-                "HeatMapView.html#geocode": {
-                  "ref": "HeatMapView.html#geocode",
-                  "tf": 10
-                }
-              }
-            }
-          },
           "o": {
             "docs": {},
             "i": {
@@ -479,30 +442,6 @@ window.lunrData = {
                 }
               }
             }
-          },
-          "e": {
-            "docs": {},
-            "o": {
-              "docs": {},
-              "c": {
-                "docs": {},
-                "o": {
-                  "docs": {},
-                  "d": {
-                    "docs": {
-                      "MapView.html#geocode": {
-                        "ref": "MapView.html#geocode",
-                        "tf": 685
-                      },
-                      "HeatMapView.html#geocode": {
-                        "ref": "HeatMapView.html#geocode",
-                        "tf": 685
-                      }
-                    }
-                  }
-                }
-              }
-            }
           }
         },
         "c": {
@@ -526,36 +465,6 @@ window.lunrData = {
                     "HeatMapView.html": {
                       "ref": "HeatMapView.html",
                       "tf": 110
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "a": {
-            "docs": {},
-            "l": {
-              "docs": {},
-              "l": {
-                "docs": {},
-                "b": {
-                  "docs": {},
-                  "a": {
-                    "docs": {},
-                    "c": {
-                      "docs": {},
-                      "k": {
-                        "docs": {
-                          "MapView.html#geocode": {
-                            "ref": "MapView.html#geocode",
-                            "tf": 25
-                          },
-                          "HeatMapView.html#geocode": {
-                            "ref": "HeatMapView.html#geocode",
-                            "tf": 25
-                          }
-                        }
-                      }
                     }
                   }
                 }
@@ -602,27 +511,6 @@ window.lunrData = {
               }
             }
           },
-          "o": {
-            "docs": {},
-            "c": {
-              "docs": {},
-              "a": {
-                "docs": {},
-                "t": {
-                  "docs": {
-                    "MapView.html#geocode": {
-                      "ref": "MapView.html#geocode",
-                      "tf": 35
-                    },
-                    "HeatMapView.html#geocode": {
-                      "ref": "HeatMapView.html#geocode",
-                      "tf": 35
-                    }
-                  }
-                }
-              }
-            }
-          },
           "t": {
             "docs": {},
             ";": {
@@ -643,17 +531,9 @@ window.lunrData = {
                             "docs": {},
                             "t": {
                               "docs": {
-                                "MapView.html#geocode": {
-                                  "ref": "MapView.html#geocode",
-                                  "tf": 25
-                                },
                                 "MapView.html#render": {
                                   "ref": "MapView.html#render",
                                   "tf": 50
-                                },
-                                "HeatMapView.html#geocode": {
-                                  "ref": "HeatMapView.html#geocode",
-                                  "tf": 25
                                 },
                                 "HeatMapView.html#render": {
                                   "ref": "HeatMapView.html#render",
@@ -681,20 +561,12 @@ window.lunrData = {
                   "ref": "MapView.html",
                   "tf": 12.5
                 },
-                "MapView.html#geocode": {
-                  "ref": "MapView.html#geocode",
-                  "tf": 10
-                },
                 "MapView.html#render": {
                   "ref": "MapView.html#render",
                   "tf": 25
                 },
                 "HeatMapView.html": {
                   "ref": "HeatMapView.html",
-                  "tf": 10
-                },
-                "HeatMapView.html#geocode": {
-                  "ref": "HeatMapView.html#geocode",
                   "tf": 10
                 },
                 "HeatMapView.html#render": {
@@ -717,29 +589,6 @@ window.lunrData = {
                       },
                       "#": {
                         "docs": {},
-                        "g": {
-                          "docs": {},
-                          "e": {
-                            "docs": {},
-                            "o": {
-                              "docs": {},
-                              "c": {
-                                "docs": {},
-                                "o": {
-                                  "docs": {},
-                                  "d": {
-                                    "docs": {
-                                      "MapView.html#geocode": {
-                                        "ref": "MapView.html#geocode",
-                                        "tf": 1150
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        },
                         "r": {
                           "docs": {},
                           "e": {
@@ -802,16 +651,8 @@ window.lunrData = {
                       "docs": {},
                       "n": {
                         "docs": {
-                          "MapView.html#geocode": {
-                            "ref": "MapView.html#geocode",
-                            "tf": 110
-                          },
                           "MapView.html#render": {
                             "ref": "MapView.html#render",
-                            "tf": 110
-                          },
-                          "HeatMapView.html#geocode": {
-                            "ref": "HeatMapView.html#geocode",
                             "tf": 110
                           },
                           "HeatMapView.html#render": {
@@ -824,30 +665,6 @@ window.lunrData = {
                           }
                         }
                       }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "u": {
-          "docs": {},
-          "p": {
-            "docs": {},
-            "d": {
-              "docs": {},
-              "a": {
-                "docs": {},
-                "t": {
-                  "docs": {
-                    "MapView.html#geocode": {
-                      "ref": "MapView.html#geocode",
-                      "tf": 10
-                    },
-                    "HeatMapView.html#geocode": {
-                      "ref": "HeatMapView.html#geocode",
-                      "tf": 10
                     }
                   }
                 }
@@ -893,29 +710,6 @@ window.lunrData = {
                               },
                               "#": {
                                 "docs": {},
-                                "g": {
-                                  "docs": {},
-                                  "e": {
-                                    "docs": {},
-                                    "o": {
-                                      "docs": {},
-                                      "c": {
-                                        "docs": {},
-                                        "o": {
-                                          "docs": {},
-                                          "d": {
-                                            "docs": {
-                                              "HeatMapView.html#geocode": {
-                                                "ref": "HeatMapView.html#geocode",
-                                                "tf": 1150
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                },
                                 "r": {
                                   "docs": {},
                                   "e": {
@@ -993,35 +787,29 @@ window.lunrData = {
           }
         }
       },
-      "length": 59
+      "length": 41
     },
     "corpusTokens": [
       "augmented.j",
-      "callback",
       "class",
       "data",
       "develop",
       "document",
       "function",
-      "geocod",
       "global",
       "googl",
       "heatmap",
       "heatmapview",
-      "heatmapview#geocod",
       "heatmapview#produceheatmap",
       "heatmapview#rend",
       "index",
       "list",
       "list:class",
-      "locat",
       "lt;async&gt",
       "map",
       "mapview",
-      "mapview#geocod",
       "mapview#rend",
       "next",
-      "pin",
       "point",
       "present",
       "produc",
@@ -1029,7 +817,6 @@ window.lunrData = {
       "readm",
       "render",
       "simpli",
-      "updat",
       "view"
     ],
     "pipeline": [
@@ -1083,16 +870,6 @@ window.lunrData = {
       "description": "MapView - A Google Map View",
       "body": ""
     },
-    "MapView.html#geocode": {
-      "id": "MapView.html#geocode",
-      "kind": "function",
-      "title": "&lt;async&gt; geocode( location, callback )",
-      "longname": "MapView#geocode",
-      "name": "geocode",
-      "tags": "MapView#geocode geocode",
-      "summary": "",
-      "description": "geocode a location and update the map with a pin"
-    },
     "MapView.html#render": {
       "id": "MapView.html#render",
       "kind": "function",
@@ -1113,16 +890,6 @@ window.lunrData = {
       "summary": "",
       "description": "HeatMapView - A Google Maps Heatmap View",
       "body": ""
-    },
-    "HeatMapView.html#geocode": {
-      "id": "HeatMapView.html#geocode",
-      "kind": "function",
-      "title": "&lt;async&gt; geocode( location, callback )",
-      "longname": "HeatMapView#geocode",
-      "name": "geocode",
-      "tags": "HeatMapView#geocode geocode",
-      "summary": "",
-      "description": "geocode a location and update the map with a pin"
     },
     "HeatMapView.html#render": {
       "id": "HeatMapView.html#render",

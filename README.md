@@ -11,16 +11,12 @@ Augmented.js Presentation Maps Module
 -   [HeatMapView](#heatmapview)
     -   [Parameters](#parameters)
     -   [Examples](#examples)
-    -   [geocode](#geocode)
-        -   [Parameters](#parameters-1)
     -   [render](#render)
     -   [produceHeatmap](#produceheatmap)
-        -   [Parameters](#parameters-2)
+        -   [Parameters](#parameters-1)
 -   [MapView](#mapview)
-    -   [Parameters](#parameters-3)
+    -   [Parameters](#parameters-2)
     -   [Examples](#examples-1)
-    -   [geocode](#geocode-1)
-        -   [Parameters](#parameters-4)
     -   [render](#render-1)
 
 ## HeatMapView
@@ -37,7 +33,7 @@ HeatMapView - A Google Maps Heatmap View
 ### Examples
 
 ```javascript
-class MapView extends HeatMapView {
+class MyMapView extends HeatMapView {
 constructor() {
   super({
       "el": MOUNT_POINT,
@@ -53,15 +49,6 @@ constructor() {
   };
 };
 ```
-
-### geocode
-
-geocode a location and update the map with a pin
-
-#### Parameters
-
--   `location` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The location as a string
--   `callback` **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** Opional callback once the call is complete and 'results' are passed
 
 ### render
 
@@ -107,15 +94,6 @@ constructor() {
   };
 };
 ```
-
-### geocode
-
-geocode a location and update the map with a pin
-
-#### Parameters
-
--   `location` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The location as a string
--   `callback` **[function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** Opional callback once the call is complete and 'results' are passed
 
 ### render
 

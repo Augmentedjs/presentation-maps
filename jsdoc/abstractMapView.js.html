@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-		<title>heatMapView.js</title>
+		<title>abstractMapView.js</title>
 		<link rel="icon" type="image/png" href="favicon.png"/>
 		<!--[if lt IE 9]>
 		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -89,7 +89,7 @@
 	<!-- end:navbar.hbs -->		<div class="page-header">
 			<div class="container">
 				<span class="kind">source</span>
-				<h1><span class="name">heatMapView.js</span></h1>
+				<h1><span class="name">abstractMapView.js</span></h1>
 			</div>
 		</div>
 	<div class="container content">
@@ -99,130 +99,106 @@
 			<article></article>
 			<pre class="prettyprint source language-javascript line-numbers"><code class="language-javascript">import { DirectiveView } from "presentation-decorator";
 import loadGoogleMapsApi from "load-google-maps-api";
-import AbstractMapView from "./abstractMapView.js";
-import producePoints from "./functions/producePoints.js";
+
+const MAP_EL = "map";
 
 /**
- * HeatMapView - A Google Maps Heatmap View
+ * AbstractMapView - An abstract class
  * @param {Object} options Options to pass
- * Requires the following options passed for meaningful results:
- * @example
- * class MyMapView extends HeatMapView {
- * constructor() {
- *   super({
- *       "el": MOUNT_POINT,
- *       "template": `any template you want`,
- *       "name": "mapview",
- *       "style": "view",
- *       "lat": 37.775,
- *       "long": -122.434,
- *       "zoom": 13,
- *       "apikey": MAP_API_KEY,
- *       "data": [{ "lat": 37, "long": -122 }, ... ]
- *     });
- *   };
- * };
+ * @private
  * @extends DirectiveView
  */
-class HeatMapView extends AbstractMapView {
+class AbstractMapView extends DirectiveView {
   constructor(options) {
     if (!options) {
       options = {};
     }
     super(options);
-    if (options.dissipating) {
-      this._dissipating = options.dissipating;
-    } else {
-      this._dissipating = false;
+    if (!this.template) {
+      this.template = "";
     }
 
-    if (options.radius) {
-      this._radius = options.radius;
+    if (options.data) {
+      this._data = options.data;
     } else {
-      this._radius = 20;
+      this._data = [];
     }
+
+    if (options.apikey) {
+      this._apikey = options.apikey;
+    } else {
+      this._apikey = "";
+    }
+
+    if (options.lat) {
+      this._lat = options.lat;
+    } else {
+      this._lat = 37.775;
+    }
+
+    if (options.long) {
+      this._long = options.long;
+    } else {
+      this._long = -122.434;
+    }
+
+    if (options.zoom) {
+      this._zoom = options.zoom;
+    } else {
+      this._zoom = 13;
+    }
+
+    if (options.geocode) {
+      this._supportGeocoder = true;
+    } else {
+      this._supportGeocoder = false;
+    }
+
+    if (options.type) {
+      this._type = options.type;
+    } else {
+      this._type = "satellite";
+    }
+
+    this._map_el = `${this.name}_${MAP_EL}`;
+
+    this.template += `
+      &lt;div id="${this._map_el}" class="map">&lt;/div>
+    `;
   };
 
   /**
-   * Renders the Map
-   * @returns {View} returns 'this'
+   * geocode a location and update the map with a pin
+   * @param {string} location The location as a string
+   * @param {function} callback Opional callback once the call is complete and 'results' are passed
    */
-  async render() {
-    await super.render();
+  async geocode(location, callback) {
+    return await this._geocodeAddress(this._geocoder, this.map, location, callback);
+  };
 
-    await loadGoogleMapsApi({
-      "key": this._apikey,
-      "libraries": ["visualization"]
-    })
-    .then( (google) => {
-      if (!google) {
-        throw new Error("Could not load Google Maps API!");
-      }
-      this._google = google;
-      if (this._supportGeocoder) {
-        this._geocoder = new this._google.Geocoder();
-      }
-      const mapEl = document.getElementById(this._map_el);
-      if (mapEl) {
-        this.map = new this._google.Map(mapEl, {
-          "zoom": this._zoom,
-          "center": {
-            "lat": this._lat,
-            "lng": this._long
-          },
-          "mapTypeId": this._type
+  async _geocodeAddress(geocoder, resultsMap, location, callback) {
+    await geocoder.geocode({ "address": location }, (results, status) => {
+      if (status === 'OK') {
+        resultsMap.setCenter(results[0].geometry.location);
+        const marker = new this._google.Marker({
+          map: resultsMap,
+          position: results[0].geometry.location
         });
-        if (this._google.visualization) {
-          if (this.heatmap) {
-            this.heatmap.setMap(null);
-          }
-          this.heatmap = new this._google.visualization.HeatmapLayer({
-            "data": producePoints(this._google, this._data),
-            "map": this.map,
-            "dissipating": this._dissipating,
-            "radius": this._radius
-          });
-        } else {
-          console.warn("Google Visualization could not load!");
+        if (callback) {
+          callback(results);
         }
       } else {
-        throw new Error("no map el");
+        console.error(`Geocode was not successful for the following reason: ${status}`);
       }
-      return true;
-    })
-    .catch( (error) => {
-      console.error(error);
     });
-    return this;
   };
 
-  /**
-   * Produces the heatmap from point data
-   * @param {Array} data The data as an array of points in Lat/Long
-   */
-  produceHeatmap(data) {
-    if (this._google.visualization &amp;&amp; (data || this._data)) {
-      if (this.heatmap) {
-        this.heatmap.setMap(null);
-      }
-      this.heatmap = new this._google.visualization.HeatmapLayer({
-        "data": producePoints(google, ((data) ? data : this._data)),
-        "map": this.map,
-        "dissipating": this._dissipating,
-        "radius": this._radius
-      });
-      if (!this._data &amp;&amp; data) {
-        this._data = data;
-      }
-    } else {
-      console.warn("Google Visualization could not load!");
-      //console.debug("required", this._google.visualization, data, this._data);
-    }
-    return true;
+  async remove() {
+    return super.remove();
   };
 };
 
-export default HeatMapView;
+export default AbstractMapView;
 </code></pre>
 		</section>
 			</div>
