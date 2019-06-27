@@ -19,7 +19,7 @@ import producePoints from "./functions/producePoints.js";
  *       "long": -122.434,
  *       "zoom": 13,
  *       "apikey": MAP_API_KEY,
- *       "data": [{ "lat": 37, "long": -122 }, ... ]
+ *       "data": [{ "lat": 37, "long": -122, "weight": 1 }, ... ]
  *     });
  *   };
  * };
@@ -64,36 +64,16 @@ class HeatMapView extends AbstractMapView {
         throw new Error("Could not load Google Maps API!");
       }
       this._google = google;
-      if (this._supportGeocoder) {
-        this._geocoder = new this._google.Geocoder();
-      }
-      const mapEl = document.getElementById(this._map_el);
-      if (mapEl) {
-        this.map = new this._google.Map(mapEl, {
-          "zoom": this._zoom,
-          "center": {
-            "lat": this._lat,
-            "lng": this._long
-          },
-          "mapTypeId": this._type
-        });
-        if (this._google.visualization) {
-          if (this.heatmap) {
-            this.heatmap.setMap(null);
-          }
-          this.heatmap = new this._google.visualization.HeatmapLayer({
-            "data": producePoints(this._google, this._data),
-            "map": this.map,
-            "dissipating": this._dissipating,
-            "radius": this._radius
-          });
-        } else {
-          console.warn("Google Visualization could not load!");
-        }
-      } else {
-        throw new Error("no map el");
-      }
-      return true;
+      this._loadGeocoder();
+      return Promise.resolve(google);
+    })
+    .then( (google) => {
+      this._produceMap();
+      return Promise.resolve(google);
+    })
+    .then( (google) => {
+      this.produceHeatmap();
+      return Promise.resolve(google);
     })
     .catch( (error) => {
       console.error(error);
@@ -104,24 +84,34 @@ class HeatMapView extends AbstractMapView {
   /**
    * Produces the heatmap from point data
    * @param {Array} data The data as an array of points in Lat/Long
+   * @example
+   * produceHeatmap([{ "lat": 37.7749, "long": -122.4194, "weight": 1 }, ... ]);
    */
   produceHeatmap(data) {
+    if (!this._google.visualization) {
+      console.warn("Google Visualization could not load!");
+      return false;
+    }
     if (this._google.visualization && (data || this._data)) {
       if (this.heatmap) {
         this.heatmap.setMap(null);
       }
-      this.heatmap = new this._google.visualization.HeatmapLayer({
-        "data": producePoints(google, ((data) ? data : this._data)),
-        "map": this.map,
-        "dissipating": this._dissipating,
-        "radius": this._radius
-      });
-      if (!this._data && data) {
-        this._data = data;
+      const points = producePoints(google, ((data) ? data : this._data));
+      if (points) {
+        this.heatmap = new this._google.visualization.HeatmapLayer({
+          "data": points,
+          "map": this.map,
+          "dissipating": this._dissipating,
+          "radius": this._radius
+        });
+        if (!this._data && data) {
+          this._data = data;
+        }
+      } else {
+        console.warn("Could not produce points for heatmap.");
       }
     } else {
-      console.warn("Google Visualization could not load!");
-      //console.debug("required", this._google.visualization, data, this._data);
+      return false;
     }
     return true;
   };

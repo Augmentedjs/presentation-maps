@@ -44,23 +44,12 @@ class MapView extends AbstractMapView {
          throw new Error("Could not load Google Maps API!");
        }
        this._google = google;
-       if (this._supportGeocoder) {
-         this._geocoder = new this._google.Geocoder();
-       }
-       const mapEl = document.getElementById(this._map_el);
-       if (mapEl) {
-         this.map = new this._google.Map(mapEl, {
-           "zoom": this._zoom,
-           "center": {
-             lat: this._lat,
-             lng: this._long
-           },
-           "mapTypeId": this._type
-         });
-       } else {
-         throw new Error("no map el");
-       }
-       return true;
+       this._loadGeocoder();
+       return Promise.resolve(google);
+     })
+     .then( (google) => {
+       this._produceMap();
+       return Promise.resolve(google);
      })
      .catch( (error) => {
        console.error(error);

@@ -68,6 +68,30 @@ class AbstractMapView extends DirectiveView {
     `;
   };
 
+  _loadGeocoder() {
+    if (this._supportGeocoder) {
+      this._geocoder = new this._google.Geocoder();
+    }
+    return this._geocoder;
+  };
+
+  _produceMap() {
+    const mapEl = document.getElementById(this._map_el);
+    if (mapEl) {
+      this.map = new this._google.Map(mapEl, {
+        "zoom": this._zoom,
+        "center": {
+          "lat": this._lat,
+          "lng": this._long
+        },
+        "mapTypeId": this._type
+      });
+    } else {
+      throw new Error("No map el");
+    }
+    return this.map;
+  };
+
   /**
    * geocode a location and update the map with a pin
    * @param {string} location The location as a string
@@ -78,9 +102,13 @@ class AbstractMapView extends DirectiveView {
   };
 
   async _geocodeAddress(geocoder, resultsMap, location, callback) {
-    await geocoder.geocode({ "address": location }, (results, status) => {
+    return await geocoder.geocode({ "address": location }, async (results, status) => {
       if (status === "OK") {
-        resultsMap.setCenter(results[0].geometry.location);
+        await resultsMap.setCenter(results[0].geometry.location);
+        if (this._marker) {
+          await this._marker.setMap(null);
+          this._marker = null;
+        }
         this._marker = new this._google.Marker({
           map: resultsMap,
           position: results[0].geometry.location

@@ -16,9 +16,10 @@ Augmented.js Presentation Maps Module
     -   [render](#render-1)
     -   [produceHeatmap](#produceheatmap)
         -   [Parameters](#parameters-1)
+        -   [Examples](#examples-1)
 -   [MapView](#mapview)
     -   [Parameters](#parameters-2)
-    -   [Examples](#examples-1)
+    -   [Examples](#examples-2)
     -   [render](#render-2)
 
 ## HeatMapView
@@ -46,7 +47,7 @@ constructor() {
       "long": -122.434,
       "zoom": 13,
       "apikey": MAP_API_KEY,
-      "data": [{ "lat": 37, "long": -122 }, ... ]
+      "data": [{ "lat": 37, "long": -122, "weight": 1 }, ... ]
     });
   };
 };
@@ -71,6 +72,12 @@ Produces the heatmap from point data
 #### Parameters
 
 -   `data` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** The data as an array of points in Lat/Long
+
+#### Examples
+
+```javascript
+produceHeatmap([{ "lat": 37.7749, "long": -122.4194, "weight": 1 }, ... ]);
+```
 
 ## MapView
 
