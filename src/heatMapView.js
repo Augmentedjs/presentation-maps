@@ -45,6 +45,10 @@ class HeatMapView extends AbstractMapView {
   };
 
   /**
+   * @property {Google.Maps.Heatmap} heatmap The heatmap
+   */
+
+  /**
    * Renders the Map
    * @returns {View} returns 'this'
    */

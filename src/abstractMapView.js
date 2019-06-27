@@ -79,9 +79,9 @@ class AbstractMapView extends DirectiveView {
 
   async _geocodeAddress(geocoder, resultsMap, location, callback) {
     await geocoder.geocode({ "address": location }, (results, status) => {
-      if (status === 'OK') {
+      if (status === "OK") {
         resultsMap.setCenter(results[0].geometry.location);
-        const marker = new this._google.Marker({
+        this._marker = new this._google.Marker({
           map: resultsMap,
           position: results[0].geometry.location
         });
@@ -92,6 +92,33 @@ class AbstractMapView extends DirectiveView {
         console.error(`Geocode was not successful for the following reason: ${status}`);
       }
     });
+  };
+
+  /**
+   * Return the marker (if one exists)
+   * @property marker
+   * @returns {Google.Maps.Marker} The map marker class
+   */
+  get marker() {
+    return this._marker;
+  };
+
+  /**
+   * Return the Google Map API instance (if one exists)
+   * @property google
+   * @returns {Google.Maps} The map api class
+   */
+  get google() {
+    return this._google;
+  };
+
+  /**
+   * Return the Google Map Geocoder instance (if one exists)
+   * @property geocoder
+   * @returns {Google.Maps.Geocoder} The geocoder class
+   */
+  get geocoder() {
+    return this._geocoder;
   };
 
   async remove() {

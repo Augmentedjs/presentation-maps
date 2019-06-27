@@ -12,12 +12,14 @@ Augmented.js Presentation Maps Module
     -   [Parameters](#parameters)
     -   [Examples](#examples)
     -   [render](#render)
+        -   [Properties](#properties)
+    -   [render](#render-1)
     -   [produceHeatmap](#produceheatmap)
         -   [Parameters](#parameters-1)
 -   [MapView](#mapview)
     -   [Parameters](#parameters-2)
     -   [Examples](#examples-1)
-    -   [render](#render-1)
+    -   [render](#render-2)
 
 ## HeatMapView
 
@@ -49,6 +51,12 @@ constructor() {
   };
 };
 ```
+
+### render
+
+#### Properties
+
+-   `heatmap` **Google.Maps.Heatmap** The heatmap
 
 ### render
 

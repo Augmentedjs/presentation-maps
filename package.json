@@ -1,6 +1,6 @@
 {
   "name": "presentation-maps",
-  "version": "2.5.0",
+  "version": "2.6.0",
   "description": "The Augmented.js Next - Presentation Maps Module.",
   "main": "dist/presentation-maps.js",
   "scripts": {
