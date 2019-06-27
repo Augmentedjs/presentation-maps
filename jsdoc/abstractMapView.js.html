@@ -194,6 +194,27 @@ class AbstractMapView extends DirectiveView {
   };
 
   /**
+   * Add a marker popup window
+   * @param {string} markup Markup content for the popup
+   */
+  addMarkerPopup(markup) {
+    if (this._google) {
+      const infowindow = new this._google.InfoWindow({
+        content: markup
+      });
+      if (this._marker) {
+        this._removePopup();
+        this._marker.addListener("click", () => {
+          infowindow.open(this.map, this._marker);
+        });
+      }
+    } else {
+      console.warn("Could not get the maps api instance to add marker details.");
+    }
+    return true;
+  };
+
+  /**
    * Return the marker (if one exists)
    * @property marker
    * @returns {Google.Maps.Marker} The map marker class
@@ -220,7 +241,15 @@ class AbstractMapView extends DirectiveView {
     return this._geocoder;
   };
 
+  _removePopup() {
+    if (this._marker) {
+      this._google.event.clearListeners(this._marker, "click");
+    }
+    return true;
+  };
+
   async remove() {
+    await this._removePopup();
     return super.remove();
   };
 };
