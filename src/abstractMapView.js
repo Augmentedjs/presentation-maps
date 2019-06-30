@@ -94,15 +94,28 @@ class AbstractMapView extends DirectiveView {
     return this.map;
   };
 
+  /**
+   * Add a marker to the map
+   * @param {string} icon A location to an icon image
+   * @param {number} lat Latitude
+   * @param {number} long Longitude
+   */
   setMarker(icon, lat, long) {
-    this._markers.push(new this._google.Marker({
-      position: new this._google.LatLng(lat, long),
-      icon: icon,
-      map: this.map
-    }));
-    console.debug(this._markers);
+    if (lat && long) {
+      const m = {
+        position: { lat: lat, lng: long },
+        map: this.map
+      };
+      if (icon) {
+        m.icon = icon;
+      }
+      this._markers.push(new this._google.Marker(m));
+    }
   };
 
+  /**
+   * Clears all markers on the map
+   */
   clearMarkers() {
     if (this._marker) {
       this._marker.setMap(null);
@@ -130,6 +143,9 @@ class AbstractMapView extends DirectiveView {
   async _geocodeAddress(geocoder, resultsMap, location, callback) {
     return await geocoder.geocode({ "address": location }, async (results, status) => {
       if (status === "OK") {
+
+        console.debug("geocode", results[0].geometry.location);
+
         await resultsMap.setCenter(results[0].geometry.location);
         if (this._marker) {
           await this._marker.setMap(null);
