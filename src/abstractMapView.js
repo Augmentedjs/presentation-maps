@@ -143,9 +143,6 @@ class AbstractMapView extends DirectiveView {
   async _geocodeAddress(geocoder, resultsMap, location, callback) {
     return await geocoder.geocode({ "address": location }, async (results, status) => {
       if (status === "OK") {
-
-        console.debug("geocode", results[0].geometry.location);
-
         await resultsMap.setCenter(results[0].geometry.location);
         if (this._marker) {
           await this._marker.setMap(null);
