@@ -96,11 +96,12 @@ class AbstractMapView extends DirectiveView {
 
   /**
    * Add a marker to the map
-   * @param {string} icon A location to an icon image
+   * @param {string} icon (optional) A location to an icon image
    * @param {number} lat Latitude
    * @param {number} long Longitude
+   * @param {number} info (optional) InfoWindow markup
    */
-  setMarker(icon, lat, long) {
+  setMarker(icon, lat, long, info) {
     if (lat && long) {
       const m = {
         position: { lat: lat, lng: long },
@@ -109,7 +110,18 @@ class AbstractMapView extends DirectiveView {
       if (icon) {
         m.icon = icon;
       }
-      this._markers.push(new this._google.Marker(m));
+      const marker = new this._google.Marker(m);
+      this._markers.push(marker);
+      if (info) {
+        const infowindow = new this._google.InfoWindow({
+          content: info
+        });
+        if (marker) {
+          marker.addListener("click", () => {
+            infowindow.open(this.map, marker);
+          });
+        }
+      }
     }
   };
 
