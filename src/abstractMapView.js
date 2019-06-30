@@ -66,6 +66,8 @@ class AbstractMapView extends DirectiveView {
     this.template += `
       <div id="${this._map_el}" class="map"></div>
     `;
+
+    this._markers = [];
   };
 
   _loadGeocoder() {
@@ -90,6 +92,30 @@ class AbstractMapView extends DirectiveView {
       throw new Error("No map el");
     }
     return this.map;
+  };
+
+  setMarker(icon, lat, long) {
+    this._markers.push(new this._google.Marker({
+      position: new this._google.LatLng(lat, long),
+      icon: icon,
+      map: this.map
+    }));
+    console.debug(this._markers);
+  };
+
+  clearMarkers() {
+    if (this._marker) {
+      this._marker.setMap(null);
+      this._marker = null;
+    }
+    if (this._markers) {
+      let i = 0;
+      const l = this._markers.length;
+      for(i; i < l; i++) {
+        this._markers[i].setMap(null);
+      }
+    }
+    return true;
   };
 
   /**
