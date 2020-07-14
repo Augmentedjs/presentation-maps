@@ -1,6 +1,6 @@
 {
   "name": "presentation-maps",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "The Augmented.js Next - Presentation Maps Module.",
   "main": "dist/presentation-maps.js",
   "scripts": {
@@ -34,7 +34,7 @@
     "documentation": "^13.0.2",
     "foodoc": "0.0.9",
     "jsdoc": "^3.6.4",
-    "jsdom": "^16.2.2",
+    "jsdom": "^16.3.0",
     "mocha": "^8.0.1",
     "mocha-jsdom": "^2.0.0",
     "webpack": "^4.43.0",
@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "load-google-maps-api": "^2.0.2",
-    "presentation-decorator": "^3.1.4"
+    "presentation-decorator": "^3.1.5"
   },
   "bugs": {
     "url": "https://github.com/Augmentedjs/presentation-maps/issues"
