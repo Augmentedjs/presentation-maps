@@ -1,6 +1,6 @@
 {
   "name": "presentation-maps",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "The Augmented.js Next - Presentation Maps Module.",
   "main": "dist/presentation-maps.js",
   "scripts": {
@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "load-google-maps-api": "^2.0.2",
-    "presentation-decorator": "^3.2.0"
+    "presentation-decorator": "^3.2.1"
   },
   "bugs": {
     "url": "https://github.com/Augmentedjs/presentation-maps/issues"
