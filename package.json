@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "load-google-maps-api": "^2.0.2",
-    "presentation-decorator": "^3.2.1"
+    "presentation-decorator": "^3.2.2"
   },
   "bugs": {
     "url": "https://github.com/Augmentedjs/presentation-maps/issues"
